@@ -584,7 +584,7 @@ function Bullet(x, y, dir, isPlayer) {
   this.y = y;
   this.dir = dir;
   this.isPlayer = !!isPlayer;
-  this.speed = BULLET_SPEED;
+  this.speed = this.isPlayer ? BULLET_SPEED * 2 : BULLET_SPEED;
   this.alive = true;
   this.size = 4;
 }
