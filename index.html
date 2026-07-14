@@ -301,8 +301,8 @@ function Tank(x, y, dir, color, isPlayer) {
   this.color = color;
   this.speed = isPlayer ? TANK_SPEED : ENEMY_SPEED;
   this.isPlayer = !!isPlayer;
-  this.width = isPlayer ? (TILE - 6) * 0.8 : TILE - 6;
-  this.height = isPlayer ? (TILE - 6) * 0.8 : TILE - 6;
+  this.width = isPlayer ? (TILE - 6) * 4 : TILE - 6;
+  this.height = isPlayer ? (TILE - 6) * 4 : TILE - 6;
   this.fireCooldown = 0;
   this.active = true;
   this.stuckTimer = 0;
