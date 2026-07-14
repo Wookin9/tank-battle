@@ -620,7 +620,7 @@ function playerHit() {
 
   // 重置位置
   player.x = canvas.width / 2;
-  player.y = canvas.height - TILE * 1.5;
+  player.y = canvas.height - TILE * 2.5;
   player.dir = DIR.UP;
 
   updateUI();
@@ -720,7 +720,7 @@ function nextLevel() {
   initMap();
 
   player.x = canvas.width / 2;
-  player.y = canvas.height - TILE * 1.5;
+  player.y = canvas.height - TILE * 2.5;
   player.dir = DIR.UP;
   playerInvincible = 60;
 
@@ -964,7 +964,7 @@ function restartGame() {
   spawnCooldown = 0;
 
   initMap();
-  player = new Tank(canvas.width / 2, canvas.height - TILE * 1.5, DIR.UP, '#4a4', true);
+  player = new Tank(canvas.width / 2, canvas.height - TILE * 2.5, DIR.UP, '#4a4', true);
 
   document.getElementById('overlay').classList.add('hidden');
   updateUI();
@@ -972,7 +972,7 @@ function restartGame() {
 
 // --- 启动 ---
 initMap();
-player = new Tank(canvas.width / 2, canvas.height - TILE * 1.5, DIR.UP, '#4a4', true);
+player = new Tank(canvas.width / 2, canvas.height - TILE * 2.5, DIR.UP, '#4a4', true);
 updateUI();
 animFrameId = requestAnimationFrame(gameLoop);
 
