@@ -426,7 +426,7 @@ Tank.prototype = {
     }
 
     bullets.push(new Bullet(this.x, this.y, this.dir, this.isPlayer));
-    this.fireCooldown = this.isPlayer ? 12 : 45;
+    this.fireCooldown = this.isPlayer ? 0 : 45;
 
     if (this.isPlayer) {
       playBeep(800, 0.08, 'square', 0.04);
@@ -442,6 +442,108 @@ Tank.prototype = {
       ctx.globalAlpha = 0.35;
     }
 
+    if (this.isPlayer) {
+      // 穿泳裤的小男孩
+      this.drawBoy(ctx);
+    } else {
+      // 敌方坦克
+      this.drawTank(ctx);
+    }
+
+    ctx.restore();
+  },
+
+  drawBoy: function(ctx) {
+    var angles = [0, Math.PI / 2, Math.PI, -Math.PI / 2];
+    ctx.rotate(angles[this.dir]);
+
+    var s = this.width / 30; // 缩放因子
+
+    // === 身体/躯干 ===
+    ctx.fillStyle = '#fddcb5';
+    ctx.fillRect(-5 * s, 2 * s, 10 * s, 6 * s);
+
+    // === 蓝色泳裤 ===
+    ctx.fillStyle = '#2288dd';
+    ctx.fillRect(-5 * s, 7 * s, 10 * s, 5 * s);
+    // 泳裤花纹
+    ctx.fillStyle = '#ffdd00';
+    ctx.fillRect(-5 * s, 8 * s, 10 * s, 1.5 * s);
+
+    // === 腿 ===
+    ctx.fillStyle = '#fddcb5';
+    ctx.fillRect(-4.5 * s, 11 * s, 3.5 * s, 5 * s);
+    ctx.fillRect(1 * s, 11 * s, 3.5 * s, 5 * s);
+
+    // === 脚/拖鞋 ===
+    ctx.fillStyle = '#44aaff';
+    ctx.fillRect(-5 * s, 15 * s, 4.5 * s, 2 * s);
+    ctx.fillRect(0.5 * s, 15 * s, 4.5 * s, 2 * s);
+
+    // === 头 ===
+    ctx.fillStyle = '#fddcb5';
+    ctx.beginPath();
+    ctx.arc(0, -4 * s, 6 * s, 0, Math.PI * 2);
+    ctx.fill();
+
+    // === 头发 ===
+    ctx.fillStyle = '#2a1a0a';
+    ctx.beginPath();
+    ctx.arc(0, -5 * s, 6.5 * s, Math.PI, 2 * Math.PI);
+    ctx.fill();
+    // 刘海
+    ctx.fillRect(-5 * s, -9 * s, 10 * s, 3 * s);
+    // 两侧头发
+    ctx.fillRect(-8 * s, -7 * s, 3 * s, 5 * s);
+    ctx.fillRect(5 * s, -7 * s, 3 * s, 5 * s);
+
+    // === 眼睛 ===
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(-2.5 * s, -5 * s, 2 * s, 0, Math.PI * 2);
+    ctx.arc(2.5 * s, -5 * s, 2 * s, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#1a1a1a';
+    ctx.beginPath();
+    ctx.arc(-2.5 * s, -5 * s, 1 * s, 0, Math.PI * 2);
+    ctx.arc(2.5 * s, -5 * s, 1 * s, 0, Math.PI * 2);
+    ctx.fill();
+    // 高光
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(-3 * s, -5.5 * s, 0.5 * s, 0, Math.PI * 2);
+    ctx.arc(2 * s, -5.5 * s, 0.5 * s, 0, Math.PI * 2);
+    ctx.fill();
+
+    // === 微笑 ===
+    ctx.strokeStyle = '#d4956b';
+    ctx.lineWidth = 0.8 * s;
+    ctx.beginPath();
+    ctx.arc(0, -2 * s, 2 * s, 0.1 * Math.PI, 0.9 * Math.PI);
+    ctx.stroke();
+
+    // === 腮红 ===
+    ctx.fillStyle = 'rgba(255,150,150,0.4)';
+    ctx.beginPath();
+    ctx.ellipse(-5 * s, -3 * s, 1.5 * s, 1 * s, 0, 0, Math.PI * 2);
+    ctx.ellipse(5 * s, -3 * s, 1.5 * s, 1 * s, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // === 手臂 ===
+    ctx.fillStyle = '#fddcb5';
+    // 左臂
+    ctx.fillRect(-8 * s, 3 * s, 3 * s, 4 * s);
+    // 右臂
+    ctx.fillRect(5 * s, 3 * s, 3 * s, 4 * s);
+    // 手
+    ctx.fillStyle = '#fddcb5';
+    ctx.beginPath();
+    ctx.arc(-8.5 * s, 7.5 * s, 1.8 * s, 0, Math.PI * 2);
+    ctx.arc(8.5 * s, 7.5 * s, 1.8 * s, 0, Math.PI * 2);
+    ctx.fill();
+  },
+
+  drawTank: function(ctx) {
     var angles = [0, Math.PI / 2, Math.PI, -Math.PI / 2];
     ctx.rotate(angles[this.dir]);
 
@@ -473,8 +575,6 @@ Tank.prototype = {
     // 炮管
     ctx.fillStyle = this.isPlayer ? '#0a0' : '#b33';
     ctx.fillRect(-2, -hh - 4, 4, hh + 4);
-
-    ctx.restore();
   }
 };
 
